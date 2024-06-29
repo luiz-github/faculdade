@@ -32,6 +32,13 @@ class Funcionario:
         self.escolaridade = None
         self.departamento = None
         self.filial = None
+        self.nome = None
+        
+    def getNome(self):
+        return self.nome
+        
+    def setNome(self, nome):
+        self.nome = nome
 
     def getFilial(self):
         return self.filial
@@ -78,8 +85,8 @@ class Escolaridade:
     
     def setEscolaridade(self, escolaridade):
         self.escolaridade = escolaridade
-    
 class Pais:
+    
     def __init__(self) -> None:
         self.sede = None
 
@@ -92,22 +99,36 @@ class Pais:
 class Departamento:
     def __init__(self) -> None:
         self.empresa = None
+        self.chefe = None
     
     def getEmpresa(self):
         return self.empresa
     
     def setEmpresa(self, empresa):
         self.empresa = empresa
+        
+    def getChefe(self):
+        return self.chefe
+        
+    def setChefe(self, chefe):
+        self.chefe = chefe
 
     def getNomePais(self):
         if self.empresa == None:
             return "empresa sem país"
         else:
             return self.empresa.getNomePais()
+           
+    def getChefeEscolaridade(self):
+        if self.chefe == None:
+            return 'chefe sem escolaridade'
+        else:
+            return self.chefe.getNomeEscolaridade()
     
 class Empresa:
     def __init__(self) -> None:
         self.grupo = None
+        self.diretor = None
 
     def getGrupo(self):
         return self.grupo
@@ -115,15 +136,35 @@ class Empresa:
     def setGrupo(self, grupo):
         self.grupo = grupo
 
+    def getDiretor(self):
+        return self.diretor
+    
+    def setDiretor(self, diretor):
+        self.diretor = diretor        
+    
+
     def getNomePais(self):
         if self.grupo == None:
             return 'grupo sem país'
         else:
             return self.grupo.getNomePais()
+            
+    def getNomeDiretor(self):
+        if self.diretor == None:
+            return 'diretor sem nome'
+        else:
+            return self.diretor.getNome()
 
 class Filial:
     def __init__(self) -> None:
         self.cidade = None
+        self.empresa = None
+        
+    def getEmpresa(self):
+        return self.empresa
+    
+    def setEmpresa(self, empresa):
+        self.empresa = empresa
 
     def getCidade(self):
         return self.cidade
@@ -136,6 +177,12 @@ class Filial:
             return "sem estado"
         else:
             return self.cidade.getNomeFilialPais()
+            
+    def getNomeDiretor(self):
+        if self.empresa == None:
+            return 'diretor sem nome'
+        else:
+            return self.empresa.getNomeDiretor()
 
 class Cidade:
     def __init__(self) -> None:
@@ -212,3 +259,27 @@ cidade.setEstado(estado)
 estado.setPais(pais)
 
 print(funcionario.getNomeFilialPais())
+
+# questão 4 =====================================
+print('questão 4 =====================================')
+departamento = Departamento()
+funcionario = Funcionario()
+escolaridade = Escolaridade()
+
+departamento.setChefe(funcionario)
+funcionario.setEscolaridade(escolaridade)
+escolaridade.setEscolaridade("Mestrado")
+
+print(departamento.getChefeEscolaridade())
+
+# questão 5 =====================================
+print('questão 5 =====================================')
+funcionario = Funcionario()
+empresa = Empresa()
+filial = Filial()
+
+filial.setEmpresa(empresa)
+empresa.setDiretor(funcionario)
+funcionario.setNome('Luiz Gustavo')
+
+print(filial.getNomeDiretor())
